@@ -1,2 +1,2 @@
 # libretro-scummvm-backend
-libretro backend for scummvm
+Libretro backend for ScummVM which can be added to backends folder of ScummVM base
