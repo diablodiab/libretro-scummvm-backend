@@ -33,9 +33,7 @@ OBJS := $(LIBRETRO_DIR)/libretro.o \
 			$(LIBRETRO_DIR)/libretro_os.o \
 			$(LIBRETRO_COMM_DIR)/file/retro_stat.o \
 			$(LIBRETRO_DIR)/libretro-fs.o \
-			$(LIBRETRO_DIR)/libretro-fs-factory.o \
-			$(LIBRETRO_COMM_DIR)/rthreads/rthreads.o
-			
+			$(LIBRETRO_DIR)/libretro-fs-factory.o			
 
 ifeq ($(USE_LIBCO), 1)
 OBJS += $(LIBRETRO_COMM_DIR)/libco/libco.o
