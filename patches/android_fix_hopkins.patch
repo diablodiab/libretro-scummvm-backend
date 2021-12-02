@@ -1,0 +1,22 @@
+diff --git a/engines/hopkins/graphics.cpp b/engines/hopkins/graphics.cpp
+index cf13db78f6..1e1319b44f 100644
+--- a/engines/hopkins/graphics.cpp
++++ b/engines/hopkins/graphics.cpp
+@@ -505,7 +505,7 @@ void GraphicsManager::fadeIn(const byte *palette, int step, const byte *surface)
+ 		updateScreen();
+ 
+ 		// Added a delay in order to see the fading
+-		_vm->_events->delay(20);
++//		_vm->_events->delay(20);
+ 	}
+ 
+ 	// Set the final palette
+@@ -534,7 +534,7 @@ void GraphicsManager::fadeOut(const byte *palette, int step, const byte *surface
+ 			display8BitRect(surface, _vm->_events->_startPos.x, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
+ 			updateScreen();
+ 
+-			_vm->_events->delay(20);
++//			_vm->_events->delay(20);
+ 		}
+ 	}
+ 

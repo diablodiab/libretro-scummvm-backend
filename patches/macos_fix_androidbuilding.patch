@@ -1,0 +1,9 @@
+diff --git a/backends/platform/libretro/build/jni/Application.mk b/backends/platform/libretro/build/jni/Application.mk
+index 338f063ef7..c03ad97eb0 100755
+--- a/backends/platform/libretro/build/jni/Application.mk
++++ b/backends/platform/libretro/build/jni/Application.mk
+@@ -1,2 +1,4 @@
+ APP_ABI := all
+ APP_STL := c++_static
++APP_SHORT_COMMANDS := true
++APP_PLATFORM := android-21

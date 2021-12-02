@@ -1,0 +1,13 @@
+diff --git a/engines/ags/engine/main/game_run.cpp b/engines/ags/engine/main/game_run.cpp
+index 96a4181e6a..16d3652f69 100644
+--- a/engines/ags/engine/main/game_run.cpp
++++ b/engines/ags/engine/main/game_run.cpp
+@@ -924,7 +924,7 @@ static void SetupLoopParameters(int untilwhat, const void *udata) {
+ 
+ // This function is called from lot of various functions
+ // in the game core, character, room object etc
+-static void GameLoopUntilEvent(int untilwhat, const void *daaa) {
++static void GameLoopUntilEvent(int untilwhat, const void *daaa) __attribute__ ((optnone)) {
+ 	// blocking cutscene - end skipping
+ 	EndSkippingUntilCharStops();
+ 

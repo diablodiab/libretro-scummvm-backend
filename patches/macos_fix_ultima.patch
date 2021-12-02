@@ -1,0 +1,45 @@
+diff --git a/engines/ultima/nuvie/usecode/u6_usecode.h b/engines/ultima/nuvie/usecode/u6_usecode.h
+index df8d89bbed..a24b36d7ca 100644
+--- a/engines/ultima/nuvie/usecode/u6_usecode.h
++++ b/engines/ultima/nuvie/usecode/u6_usecode.h
+@@ -52,7 +52,6 @@ class MsgScroll;
+ #define TORCH_LIGHT_LEVEL    3
+ 
+ // Explicit packing used below to fix MSVC warning
+-#include "common/pack-start.h"	// START STRUCT PACKING
+ 
+ struct U6ObjectType { // object properties & usecode
+ 	uint16 obj_n; // type
+@@ -61,9 +60,8 @@ struct U6ObjectType { // object properties & usecode
+ 	UseCodeEvent trigger; // accepted event(s)
+ 	bool (U6UseCode::*usefunc)(Obj *, UseCodeEvent); // usecode function
+ 	uint16 flags; // properties (OBJTYPE)
+-} PACKED_STRUCT;
++};
+ 
+-#include "common/pack-end.h"	// END STRUCT PACKING
+ 
+ typedef enum {
+ 	LAT,
+diff --git a/engines/ultima/ultima4/game/item.h b/engines/ultima/ultima4/game/item.h
+index ae0cb3665f..c197e0137c 100644
+--- a/engines/ultima/ultima4/game/item.h
++++ b/engines/ultima/ultima4/game/item.h
+@@ -44,7 +44,6 @@ class Items;
+ typedef bool (Items::*IsInInventoryProc)(int item);
+ typedef void (Items::*InventoryActionProc)(int item);
+ 
+-#include "common/pack-start.h"	// START STRUCT PACKING
+ struct ItemLocation {
+ 	const char *_name;
+ 	const char *_shortName;
+@@ -54,8 +53,7 @@ struct ItemLocation {
+ 	InventoryActionProc _useItem;
+ 	int _data;
+ 	byte _conditions;
+-} PACKED_STRUCT;
+-#include "common/pack-end.h"	// END STRUCT PACKING
++};
+ 
+ typedef void (*DestroyAllCreaturesCallback)();
+ #define N_ITEMS 34
