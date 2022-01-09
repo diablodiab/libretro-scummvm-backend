@@ -30,10 +30,12 @@
 		  defined(_M_ARM64)
 
 typedef uint64 uintptr;
+typedef int64 intptr;
 
 #else
 
 typedef uint32 uintptr;
+typedef int32 intptr;
 
 #endif
 
