@@ -4,12 +4,17 @@ cryomni3d.dat
 drascula.dat
 encoding.dat
 fonts.dat
+grim-patch.lab
+hadesch_translations.dat
 hugo.dat
 kyra.dat
 lure.dat
 macgui.dat
 macventure.dat
 mort.dat
+monkey4-patch.m4b
+mort.dat
+myst3.dat
 neverhood.dat
 prince_translation.dat
 queen.tbl
