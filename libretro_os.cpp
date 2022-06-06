@@ -127,7 +127,7 @@ static INLINE void blit_uint8_uint16_fast(Graphics::Surface& aOut, const Graphic
          uint8 r, g, b;
 
          const uint8_t val = in[j];
-         if(val != 0xFFFFFFFF)
+         //if(val != 0xFFFFFFFF)
          {
             if(aIn.format.bytesPerPixel == 1)
             {
@@ -162,8 +162,8 @@ static INLINE void blit_uint32_uint16(Graphics::Surface& aOut, const Graphics::S
 
          uint8 r, g, b;
 
-         const uint32_t val = in[j];
-         if(val != 0xFFFFFFFF)
+         //const uint32_t val = in[j];
+         //if(val != 0xFFFFFFFF)
          {
             aIn.format.colorToRGB(in[j], r, g, b);
             out[j] = aOut.format.RGBToColor(r, g, b);
@@ -189,8 +189,8 @@ static INLINE void blit_uint16_uint16(Graphics::Surface& aOut, const Graphics::S
 
          uint8 r, g, b;
 
-         const uint16_t val = in[j];
-         if(val != 0xFFFFFFFF)
+         //const uint16_t val = in[j];
+         //if(val != 0xFFFFFFFF)
          {
             aIn.format.colorToRGB(in[j], r, g, b);
             out[j] = aOut.format.RGBToColor(r, g, b);
@@ -251,6 +251,45 @@ static void blit_uint16_uint16(Graphics::Surface& aOut, const Graphics::Surface&
          {
             aIn.format.colorToRGB(in[j], r, g, b);
             out[j + aX] = aOut.format.RGBToColor(r, g, b);
+         }
+      }
+   }
+}
+
+static void blit_uint32_uint16(Graphics::Surface& aOut, const Graphics::Surface& aIn, int aX, int aY, const RetroPalette& aColors, uint32 aKeyColor)
+{
+   for(int i = 0; i < aIn.h; i ++)
+   {
+      if((i + aY) < 0 || (i + aY) >= aOut.h)
+         continue;
+
+      uint32_t* const in = (uint32_t*)aIn.pixels + (i * aIn.w);
+      uint16_t* const out = (uint16_t*)aOut.pixels + ((i + aY) * aOut.w);
+
+      for(int j = 0; j < aIn.w; j ++)
+      {
+         if((j + aX) < 0 || (j + aX) >= aOut.w)
+            continue;
+
+         uint8 in_a, in_r, in_g, in_b;
+         uint8 out_r, out_g, out_b;
+         uint32_t blend_r, blend_g, blend_b;
+
+         const uint32_t val = in[j];
+         if(val != aKeyColor)
+         {
+            aIn.format.colorToARGB(in[j], in_a, in_r, in_g, in_b);
+
+            if(in_a)
+            {
+               aOut.format.colorToRGB(out[j + aX], out_r, out_g, out_b);
+
+               blend_r = ((in_r * in_a) + (out_r * (255 - in_a))) / 255;
+               blend_g = ((in_g * in_a) + (out_g * (255 - in_a))) / 255;
+               blend_b = ((in_b * in_a) + (out_b * (255 - in_a))) / 255;
+
+               out[j + aX] = aOut.format.RGBToColor(blend_r, blend_g, blend_b);
+            }
          }
       }
    }
@@ -520,10 +559,19 @@ class OSystem_RETRO : public EventsBaseBackend, public PaletteManager {
             const int x = _mouseX - _mouseHotspotX;
             const int y = _mouseY - _mouseHotspotY;
 
-            if(_mouseImage.format.bytesPerPixel == 1)
-               blit_uint8_uint16(_screen, _mouseImage, x, y, _mousePaletteEnabled ? _mousePalette : _gamePalette, _mouseKeyColor);
-            else
-               blit_uint16_uint16(_screen, _mouseImage, x, y, _mousePaletteEnabled ? _mousePalette : _gamePalette, _mouseKeyColor);
+            switch(_mouseImage.format.bytesPerPixel)
+            {
+               case 1:
+               case 3:
+                  blit_uint8_uint16(_screen, _mouseImage, x, y, _mousePaletteEnabled ? _mousePalette : _gamePalette, _mouseKeyColor);
+                  break;
+               case 2:
+                  blit_uint16_uint16(_screen, _mouseImage, x, y, _mousePaletteEnabled ? _mousePalette : _gamePalette, _mouseKeyColor);
+                  break;
+               case 4:
+                  blit_uint32_uint16(_screen, _mouseImage, x, y, _mousePaletteEnabled ? _mousePalette : _gamePalette, _mouseKeyColor);
+                  break;
+            }
          }
       }
 
