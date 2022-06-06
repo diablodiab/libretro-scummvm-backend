@@ -201,6 +201,11 @@ DEFINES += -DENABLE_HUGO=$(ENABLE_HUGO)
 MODULES += engines/hugo
 endif
 
+ifdef ENABLE_HYPNO
+DEFINES += -DENABLE_HYPNO=$(ENABLE_HYPNO)
+MODULES += engines/hypno
+endif
+
 ifdef ENABLE_ICB
 DEFINES += -DENABLE_ICB=$(ENABLE_ICB)
 MODULES += engines/icb
@@ -337,6 +342,11 @@ endif
 ifdef ENABLE_PINK
 DEFINES += -DENABLE_PINK=$(ENABLE_PINK)
 MODULES += engines/pink
+endif
+
+ifdef ENABLE_PLAYGROUND3D
+DEFINES += -DENABLE_PLAYGROUND3D=$(ENABLE_PLAYGROUND3D)
+MODULES += engines/playground3d
 endif
 
 ifdef ENABLE_PLUMBERS
