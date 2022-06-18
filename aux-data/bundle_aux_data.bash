@@ -13,6 +13,7 @@ BUNDLE_ZIP_FILE="${BUNDLE_DIR}.zip"
 
 MODERN_THEME_FILE="$(readlink -f "${SCRIPT_DIR}/../../../../gui/themes/scummmodern.zip")"
 REMASTERED_THEME_FILE="$(readlink -f "${SCRIPT_DIR}/../../../../gui/themes/scummremastered.zip")"
+RESIDUALVM_THEME_FILE="$(readlink -f "${SCRIPT_DIR}/../../../../gui/themes/residualvm.zip")"
 SOUNDFONT_FILE="${SCRIPT_DIR}/soundfont/Roland_SC-55.sf2"
 
 ENGINE_DATA_DIR="$(readlink -f "${SCRIPT_DIR}/../../../../dists/engine-data")"
@@ -48,6 +49,7 @@ mkdir -p "$BUNDLE_THEME_DIR"
 # Copy theme files
 cp -v "$MODERN_THEME_FILE" "$BUNDLE_THEME_DIR"
 cp -v "$REMASTERED_THEME_FILE" "$BUNDLE_THEME_DIR"
+cp -v "$RESIDUALVM_THEME_FILE" "$BUNDLE_THEME_DIR"
 
 # Copy soundfont file
 cp -v "$SOUNDFONT_FILE" "$BUNDLE_EXTRA_DIR"
