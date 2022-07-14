@@ -64,6 +64,8 @@ ifeq ($(shell uname -m), x86_64)
    BUILD_64BIT = 1
 else ifeq ($(shell uname -m), arm64)
    BUILD_64BIT = 1
+else ifeq ($(shell uname -m), aarch64)
+   BUILD_64BIT = 1
 else
    BUILD_64BIT = 0
 endif
@@ -259,6 +261,17 @@ else ifeq ($(platform), gcw0)
    USE_LIBCO  = 0
    HAVE_MT32EMU = 0
    NO_HIGH_DEF := 1
+
+# Raspberry Pi 4
+else ifneq (,$(findstring rpi4,$(platform)))
+   TARGET := $(TARGET_NAME)_libretro.so
+   TARGET_64BIT := $(BUILD_64BIT)
+   DEFINES += -fPIC -Wno-multichar -D_ARM_ASSEM_
+   LDFLAGS += -shared -Wl,--version-script=../link.T -fPIC
+   DEFINES += -mcpu=cortex-a72
+   CXXFLAGS := -std=c++11
+   DEFINES += -DUSE_CXX11
+   DEFINES += -DARM
 
 else ifeq ($(platform), android-armv7)
    TARGET  := $(TARGET_NAME)_libretro_android.so
