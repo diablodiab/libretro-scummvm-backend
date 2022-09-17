@@ -30,6 +30,8 @@
 #include <ctype.h>
 #include <math.h>
 #include <new>
+#include <limits.h>
+
 
 /* newlib ctype.h defines _X for hex digit flag.
    This conflicts with the use of _X as a variable name. */
