@@ -1314,6 +1314,11 @@ class OSystem_RETRO : public EventsBaseBackend, public PaletteManager {
          Common::Event ev;
          ev.type = Common::EVENT_QUIT;
          dynamic_cast<OSystem_RETRO *>(g_system)->getEventManager()->pushEvent(ev);
+
+         // Some engines might ask for a (Y/N) confirmation when quitting
+         // Send 'y' key to suppress these confirmation prompts
+         processKeyEvent(true, 121, 121, 0);
+         processKeyEvent(false, 121, 121 ,0);
       }
 };
 
