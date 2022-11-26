@@ -32,6 +32,7 @@
 #include "surface.libretro.h"
 #include "backends/base-backend.h"
 #include "common/events.h"
+#include "common/config-manager.h"
 #include "audio/mixer_intern.h"
 
 #if defined(_WIN32)
@@ -426,6 +427,14 @@ class OSystem_RETRO : public EventsBaseBackend, public PaletteManager {
          _mixer->setReady(true);
 
          EventsBaseBackend::initBackend();
+      }
+
+      virtual void engineInit(){
+         Common::String engineId = ConfMan.get("engineid");
+         if ( engineId.equalsIgnoreCase("scumm") && ConfMan.getBool("original_gui") ){
+            ConfMan.setBool("original_gui",false);
+            log_cb(RETRO_LOG_INFO, "\"original_gui\" setting forced to false\n");
+         }
       }
 
       virtual bool hasFeature(Feature f)
@@ -1314,11 +1323,6 @@ class OSystem_RETRO : public EventsBaseBackend, public PaletteManager {
          Common::Event ev;
          ev.type = Common::EVENT_QUIT;
          dynamic_cast<OSystem_RETRO *>(g_system)->getEventManager()->pushEvent(ev);
-
-         // Some engines might ask for a (Y/N) confirmation when quitting
-         // Send 'y' key to suppress these confirmation prompts
-         processKeyEvent(true, 121, 121, 0);
-         processKeyEvent(false, 121, 121 ,0);
       }
 };
 
