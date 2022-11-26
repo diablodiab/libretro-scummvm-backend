@@ -308,7 +308,7 @@ else ifneq (,$(findstring hardfloat,$(platform)))
    DEFINES += -mfloat-abi=hard
 endif
    DEFINES += -DARM
-
+# Odroid Go Advance
 else ifneq (,$(findstring oga_a35_neon_hardfloat,$(platform)))
    TARGET := $(TARGET_NAME)_libretro.so
    DEFINES += -fPIC -Wno-multichar -D_ARM_ASSEM_
