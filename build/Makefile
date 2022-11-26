@@ -308,6 +308,18 @@ else ifneq (,$(findstring hardfloat,$(platform)))
    DEFINES += -mfloat-abi=hard
 endif
    DEFINES += -DARM
+# Odroid Go Advance
+else ifneq (,$(findstring oga_a35_neon_hardfloat,$(platform)))
+   TARGET := $(TARGET_NAME)_libretro.so
+   DEFINES += -fPIC -Wno-multichar -D_ARM_ASSEM_
+   LDFLAGS += -shared -Wl,--version-script=../link.T -fPIC
+   USE_VORBIS = 0
+   USE_THEORADEC = 0
+   USE_TREMOR = 1
+   HAVE_MT32EMU = 0
+   DEFINES +=  -marm -mtune=cortex-a35 -mfpu=neon-fp-armv8 -mfloat-abi=hard -march=armv8-a+crc
+   HAVE_NEON = 1
+   DEFINES += -DARM
 
 # Emscripten
 else ifeq ($(platform), emscripten)
